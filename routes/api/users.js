@@ -28,22 +28,22 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email: req.body.email }).then(user => {
+  User.findOne({ plateNum: req.body.plateNum }).then(user => {
     if (user) {
-      errors.email = "Email already exists";
+      errors.plateNum = "Car Plate Number already exists";
       return res.status(400).json(errors);
     } else {
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
+      const newCar = new User({
+        plateNum: req.body.plateNum,
+        password: req.body.password,
+        isCrew: false
       });
 
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
+        bcrypt.hash(newCar.password, salt, (err, hash) => {
           if (err) throw err;
-          newUser.password = hash;
-          newUser
+          newCar.password = hash;
+          newCar
             .save()
             .then(user => res.json(user))
             .catch(err => console.log(err));
@@ -64,22 +64,19 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const email = req.body.email;
+  const plateNum = req.body.plateNum;
   const password = req.body.password;
 
-  // Find User by email
-  User.findOne({ email }).then(user => {
+  // Find User by plateNum
+  User.findOne({ plateNum }).then(user => {
     //check for user
     if (!user) {
-      errors.email = " User not Found";
+      errors.plateNum = " Car not Found";
       return res.status(404).json(errors);
     }
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // res.json({ msg: "Success" });
-
-        // User Matched
-
         const payload = { id: user.id, name: user.name };
 
         // Sign Token
@@ -111,8 +108,8 @@ router.get(
   (req, res) => {
     res.json({
       id: req.user.id,
-      name: req.user.name,
-      email: req.user.email
+      plateNum: req.user.plateNum,
+      isCrew: req.user.isCrew
     });
   }
 );

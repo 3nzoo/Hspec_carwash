@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const ProfileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    //database name
     ref: "users"
   },
   handle: {
@@ -13,104 +12,30 @@ const ProfileSchema = new Schema({
     required: true,
     max: 40
   },
-  company: {
+  ownerName: {
     type: String
   },
-  website: {
+  Brand: {
     type: String
   },
-  location: {
+  Model: {
     type: String
   },
-  status: {
-    type: String,
-    required: true
-  },
-  skills: {
-    type: [String],
-    required: true
-  },
-  bio: {
+  Year: {
     type: String
   },
-  gtihubusername: {
-    type: String
-  },
-  experience: [
+  starCount: [
     {
-      title: {
-        type: String,
+      count: {
+        type: Number,
         required: true
       },
-      company: {
-        type: String,
-        required: true
-      },
-      location: {
-        type: String
-      },
-      from: {
+      date: {
         type: Date,
-        required: true
-      },
-      to: {
-        type: Date
-      },
-      current: {
-        type: Boolean,
-        default: false
-      },
-      description: {
-        type: String
+        default: Date.now
       }
     }
   ],
-  education: [
-    {
-      school: {
-        type: String,
-        required: true
-      },
-      degree: {
-        type: String,
-        required: true
-      },
-      fieldofstudy: {
-        type: String
-      },
-      from: {
-        type: Date,
-        required: true
-      },
-      to: {
-        type: Date
-      },
-      current: {
-        type: Boolean,
-        default: false
-      },
-      description: {
-        type: String
-      }
-    }
-  ],
-  social: {
-    youtube: {
-      type: String
-    },
-    twitter: {
-      type: String
-    },
-    facebook: {
-      type: String
-    },
-    instagram: {
-      type: String
-    },
-    linkedin: {
-      type: String
-    }
-  },
   date: {
     type: Date,
     default: Date.now

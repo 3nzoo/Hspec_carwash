@@ -5,9 +5,6 @@ const passport = require("passport");
 
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
-const posts = require("./routes/api/posts");
-const payment = require("./routes/api/payment");
-const clients = require("./routes/api/clients");
 
 const app = express();
 
@@ -21,7 +18,7 @@ const db = require("./config/keys").mongoURI;
 
 //Connect to Mongodb
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log("mongo db connected hooray!!!"))
   .catch(err => console.log(err));
 
@@ -36,9 +33,6 @@ require("./config/passport")(passport);
 // Use Routes
 app.use("/api/users", users);
 app.use("/api/profile", profile);
-app.use("/api/posts", posts);
-app.use("/api/payment", payment);
-app.use("/api/clients", clients);
 
 const port = process.env.PORT || 3000;
 
