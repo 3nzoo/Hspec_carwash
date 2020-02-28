@@ -1,7 +1,7 @@
 {
-  "name": "devcon",
+  "name": "Hspec Garage Backend",
   "version": "1.0.0",
-  "description": "social net trial",
+  "description": "Backend Service",
   "main": "server.js",
   "repository": {
     "type": "git",
